@@ -44,3 +44,16 @@ My\ClassWithPublicProperties {
     bar: "bbb"
 }
 ```
+
+You can configure the recursive depth:
+
+```php
+echo NumberTwo::dump($otherObject, 2);
+UnitTest\NumberTwo\PublicProperties {
+    foo: UnitTest\NumberTwo\PublicProperties {
+        foo: UnitTest\NumberTwo\PrivateProperties { ... }
+        bar: null
+    }
+    bar: null
+}
+```
