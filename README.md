@@ -34,3 +34,13 @@ echo NumberTwo::dump(array('foo' => 'bar'));
     "foo" => "bar"
 ]
 ```
+
+### Objects
+
+```php
+echo NumberTwo::dump($object);
+My\ClassWithPublicProperties {
+    foo: "aaa"
+    bar: "bbb"
+}
+```

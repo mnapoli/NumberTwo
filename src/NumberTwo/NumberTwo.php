@@ -43,29 +43,13 @@ class NumberTwo
             return (string) $var;
         }
 
+        // Array
         if (is_array($var)) {
-            if (count($var) === 0) {
-                return '[]';
-            }
-
-            if ($depth === 0) {
-                return '[ ... ]';
-            }
-
-            $contentDump = '';
-            foreach ($var as $key => $value) {
-                $keyDump = self::dump($key, 1);
-                $valueDump = self::dump($value, $depth - 1);
-                $contentDump .= $keyDump . ' => ' . $valueDump . PHP_EOL;
-            }
-            $contentDump = self::indent($contentDump);
-
-            $dump = '[' . PHP_EOL . $contentDump . ']';
-
-            return $dump;
+            return self::dumpArray($var, $depth);
         }
 
-        return '';
+        // Object
+        return self::dumpObject($var, $depth);
     }
 
     /**
@@ -85,5 +69,60 @@ class NumberTwo
         $lines = array_map(function($line) { return self::TAB . $line; }, $lines);
 
         return implode(PHP_EOL, $lines) . PHP_EOL;
+    }
+
+    /**
+     * @param array $var
+     * @param int $depth
+     * @return string
+     */
+    private static function dumpArray($var, $depth)
+    {
+        if (count($var) === 0) {
+            return '[]';
+        }
+
+        if ($depth === 0) {
+            return '[ ... ]';
+        }
+
+        $contentDump = '';
+        foreach ($var as $key => $value) {
+            $keyDump = self::dump($key, 1);
+            $valueDump = self::dump($value, $depth - 1);
+            $contentDump .= $keyDump . ' => ' . $valueDump . PHP_EOL;
+        }
+        $contentDump = self::indent($contentDump);
+
+        $dump = '[' . PHP_EOL . $contentDump . ']';
+
+        return $dump;
+    }
+
+    /**
+     * @param object $var
+     * @param int $depth
+     * @return string
+     */
+    private static function dumpObject($var, $depth)
+    {
+        $class = get_class($var);
+
+        if ($depth === 0) {
+            return $class . ' { ... }';
+        }
+
+        $reflectionClass = new \ReflectionClass($var);
+
+        $contentDump = '';
+        foreach ($reflectionClass->getProperties() as $property) {
+            $valueDump = self::dump($property->getValue($var), $depth - 1);
+            $contentDump .= $property->getName() . ': ' . $valueDump . PHP_EOL;
+        }
+        $contentDump = self::indent($contentDump);
+
+        $dump = $class . ' {' . PHP_EOL . $contentDump . '}';
+
+        return $dump;
     }
 }
