@@ -2,6 +2,8 @@
 
 NumberTwo dumps your variables like nobody.
 
+[![Build Status](https://travis-ci.org/mnapoli/NumberTwo.png?branch=master)](https://travis-ci.org/mnapoli/NumberTwo)
+
 ### Scalars
 
 ```php
