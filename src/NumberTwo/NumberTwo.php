@@ -10,15 +10,17 @@ namespace NumberTwo;
 class NumberTwo
 {
     const TAB = '    ';
+
     /**
      * Returns a string representation of the variable.
      *
      * @param mixed $var
      * @param int   $depth
+     * @param array $filters Array of filters for displaying specific classes
      *
      * @return string
      */
-    public static function dump($var, $depth = 2)
+    public static function dump($var, $depth = 2, array $filters = array())
     {
         // Null
         if (is_null($var)) {
@@ -46,6 +48,15 @@ class NumberTwo
         // Array
         if (is_array($var)) {
             return self::dumpArray($var, $depth);
+        }
+
+        // Class filters
+        $class = get_class($var);
+        if (array_key_exists($class, $filters)) {
+            /** @var Filter $filter */
+            $filter = $filters[$class];
+
+            return $filter->dump($var, $depth);
         }
 
         // Object
