@@ -48,10 +48,14 @@ class NumberTwo
                 return '[]';
             }
 
+            if ($depth === 0) {
+                return '[ ... ]';
+            }
+
             $contentDump = '';
             foreach ($var as $key => $value) {
-                $keyDump = self::dump($key);
-                $valueDump = self::dump($value);
+                $keyDump = self::dump($key, 1);
+                $valueDump = self::dump($value, $depth - 1);
                 $contentDump .= $keyDump . ' => ' . $valueDump . PHP_EOL;
             }
             $contentDump = self::indent($contentDump);
