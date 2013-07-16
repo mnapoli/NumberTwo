@@ -55,7 +55,7 @@ class NumberTwo
             /** @var Filter $filter */
             $className = $filter->getClassName();
 
-            if ($className == get_class($var) || in_array($className, class_implements($var)) || in_array($className, class_parents($var))) {
+            if ($var instanceof $className) {
                 $var = $filter->filter($var);
             }
 
