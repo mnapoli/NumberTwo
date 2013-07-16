@@ -116,6 +116,10 @@ class NumberTwo
 
         $contentDump = '';
         foreach ($reflectionClass->getProperties() as $property) {
+            if ($property->isPrivate() || $property->isProtected()) {
+                $property->setAccessible(true);
+            }
+
             $valueDump = self::dump($property->getValue($var), $depth - 1);
             $contentDump .= $property->getName() . ': ' . $valueDump . PHP_EOL;
         }
