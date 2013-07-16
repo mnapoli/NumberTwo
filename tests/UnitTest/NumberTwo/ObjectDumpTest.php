@@ -35,6 +35,20 @@ END;
 UnitTest\NumberTwo\PrivateProperties {
     foo: "aaa"
     bar: "bbb"
+    bam: null
+}
+END;
+        $dump = NumberTwo::dump($object);
+        $this->assertEquals($expected, $dump);
+    }
+
+    public function testInheritedProperties()
+    {
+        $object = new InheritedProperties("aaa", "bbb");
+        $expected = <<<END
+UnitTest\NumberTwo\InheritedProperties {
+    foo: "aaa"
+    bam: null
 }
 END;
         $dump = NumberTwo::dump($object);
@@ -58,6 +72,16 @@ END;
         $dump = NumberTwo::dump($object);
         $this->assertEquals($expected, $dump);
     }
+
+    public function testEmptyClass()
+    {
+        $object = new EmptyClass();
+        $expected = <<<END
+UnitTest\NumberTwo\EmptyClass { }
+END;
+        $dump = NumberTwo::dump($object);
+        $this->assertEquals($expected, $dump);
+    }
 }
 
 /**
@@ -74,10 +98,23 @@ class PublicProperties {
 class PrivateProperties {
     protected $foo;
     private $bar;
+    public $bam;
 
     public function __construct($foo, $bar)
     {
         $this->foo = $foo;
         $this->bar = $bar;
     }
+}
+
+/**
+ * Fixture class
+ */
+class EmptyClass {
+}
+
+/**
+ * Fixture class
+ */
+class InheritedProperties extends PrivateProperties {
 }

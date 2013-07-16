@@ -13,14 +13,18 @@ use NumberTwo\NumberTwo;
 class DoctrineCollectionFilter implements Filter
 {
     /**
+     * @return string Class or interface name to match
+     */
+    public function getClassName()
+    {
+        return 'Doctrine\Common\Collections\Collection';
+    }
+
+    /**
      * {@inheritdoc}
      */
-    public function dump($var, $depth = 2)
+    public function filter($var)
     {
-        if (in_array('Doctrine\Common\Collections\Collection', class_implements($var))) {
-            $var = $var->toArray();
-        }
-
-        return NumberTwo::dump($var, $depth);
+        return $var->toArray();
     }
 }

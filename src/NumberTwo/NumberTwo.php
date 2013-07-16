@@ -51,12 +51,13 @@ class NumberTwo
         }
 
         // Class filters
-        $class = get_class($var);
-        if (array_key_exists($class, $filters)) {
+        foreach ($filters as $filter) {
             /** @var Filter $filter */
-            $filter = $filters[$class];
+            $className = $filter->getClassName();
 
-            return $filter->dump($var, $depth);
+            if ($var instanceof $className) {
+                $var = $filter->filter($var);
+            }
         }
 
         // Object
@@ -125,9 +126,14 @@ class NumberTwo
         }
 
         $reflectionClass = new \ReflectionClass($var);
+        $properties = $reflectionClass->getProperties();
+
+        if (count($properties) === 0) {
+            return $class . ' { }';
+        }
 
         $contentDump = '';
-        foreach ($reflectionClass->getProperties() as $property) {
+        foreach ($properties as $property) {
             if ($property->isPrivate() || $property->isProtected()) {
                 $property->setAccessible(true);
             }

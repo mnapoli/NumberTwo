@@ -13,11 +13,14 @@ class FilterTest extends \PHPUnit_Framework_TestCase
     {
         $filter = $this->getMockForAbstractClass('NumberTwo\Filter');
         $filter->expects($this->once())
-            ->method('dump')
-            ->will($this->returnValue('foo'));
+            ->method('filter')
+            ->will($this->returnValue(new \ArrayObject()));
+        $filter->expects($this->once())
+            ->method('getClassName')
+            ->will($this->returnValue('stdClass'));
 
-        $dump = NumberTwo::dump(new \stdClass(), 2, array('stdClass' => $filter));
+        $dump = NumberTwo::dump(new \stdClass(), 2, array($filter));
 
-        $this->assertEquals('foo', $dump);
+        $this->assertEquals('ArrayObject { }', $dump);
     }
 }

@@ -5,12 +5,16 @@ namespace NumberTwo;
 interface Filter
 {
     /**
-     * Returns a string representation of the variable.
+     * @return string Class or interface name to match
+     */
+    public function getClassName();
+
+    /**
+     * Filters the variable.
      *
      * @param mixed $var
-     * @param int   $depth
      *
      * @return string
      */
-    public function dump($var, $depth = 2);
+    public function filter($var);
 }
