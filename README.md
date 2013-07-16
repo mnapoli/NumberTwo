@@ -16,4 +16,15 @@ echo NumberTwo::dump(1);
 
 echo NumberTwo::dump('foo');
 "foo"
+
+echo NumberTwo::dump(array('foo', 'bar'));
+[
+    0 => "foo"
+    1 => "bar"
+]
+
+echo NumberTwo::dump(array('foo' => 'bar'));
+[
+    "foo" => "bar"
+]
 ```
