@@ -65,3 +65,29 @@ UnitTest\NumberTwo\PublicProperties {
     bar: null
 }
 ```
+
+### Filters
+
+You may want to pre-process some objects that are to be dumped.
+
+For that, you can use the filters:
+
+```php
+$filters = array(new MyFilter());
+
+echo NumberTwo::dump($otherObject, 2, $filters);
+```
+
+#### Doctrine Collection
+
+NumberTwo provides a filter for Doctrine's collections:
+
+```php
+use NumberTwo\Filter\DoctrineCollectionFilter;
+
+$filters = array(new DoctrineCollectionFilter());
+
+echo NumberTwo::dump($otherObject, 2, $filters);
+```
+
+This filter will turn any Collection (ArrayCollection, PersistentCollection, …) into a PHP array (using the `toArray()` method).
