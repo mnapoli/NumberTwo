@@ -34,6 +34,17 @@ class NumberTwoTest extends \PHPUnit_Framework_TestCase
     {
         $dump = NumberTwo::dump('some string');
         $this->assertEquals('"some string"', $dump);
+
+        $str = <<<END
+This is a
+  multiline string
+END;
+        $expected = <<<END
+"This is a
+  multiline string"
+END;
+        $dump = NumberTwo::dump($str);
+        $this->assertEquals($expected, $dump);
     }
 
     public function testDumpBoolean()
