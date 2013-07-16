@@ -1,37 +1,47 @@
 # NumberTwo
 
-NumberTwo dumps your variables like nobody.
+NumberTwo is a classy variable dumper.
 
 [![Build Status](https://travis-ci.org/mnapoli/NumberTwo.png?branch=master)](https://travis-ci.org/mnapoli/NumberTwo)
+
+When `var_dump` or `print_r` is too verbose or unpleasant to read, go for NumberTwo.
 
 ### Scalars
 
 ```php
 echo NumberTwo::dump(null);
-null
+// null
 
 echo NumberTwo::dump(true);
-true
+// true
 echo NumberTwo::dump(false);
-false
+// false
 
 echo NumberTwo::dump(1);
-1
+// 1
 
 echo NumberTwo::dump('foo');
-"foo"
+// "foo"
 ```
 
 ### Arrays
 
 ```php
 echo NumberTwo::dump(array('foo', 'bar'));
+```
+
+```php
 [
     0 => "foo"
     1 => "bar"
 ]
+```
 
+```php
 echo NumberTwo::dump(array('foo' => 'bar'));
+```
+
+```php
 [
     "foo" => "bar"
 ]
