@@ -58,6 +58,11 @@ class NumberTwo
             if ($var instanceof $className) {
                 $var = $filter->filter($var);
             }
+
+            // If it's not an object anymore, restart from scratch
+            if (! is_object($var)) {
+                return self::dump($var, $depth, $filters);
+            }
         }
 
         // Object
