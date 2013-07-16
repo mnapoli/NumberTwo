@@ -47,7 +47,7 @@ class NumberTwo
 
         // Array
         if (is_array($var)) {
-            return self::dumpArray($var, $depth);
+            return self::dumpArray($var, $depth, $filters);
         }
 
         // Class filters
@@ -66,7 +66,7 @@ class NumberTwo
         }
 
         // Object
-        return self::dumpObject($var, $depth);
+        return self::dumpObject($var, $depth, $filters);
     }
 
     /**
@@ -90,10 +90,11 @@ class NumberTwo
 
     /**
      * @param array $var
-     * @param int $depth
+     * @param int   $depth
+     * @param array $filters
      * @return string
      */
-    private static function dumpArray($var, $depth)
+    private static function dumpArray($var, $depth, $filters)
     {
         if (count($var) === 0) {
             return 'array(0)';
@@ -106,8 +107,8 @@ class NumberTwo
 
         $contentDump = '';
         foreach ($var as $key => $value) {
-            $keyDump = self::dump($key, 1);
-            $valueDump = self::dump($value, $depth - 1);
+            $keyDump = self::dump($key, 1, $filters);
+            $valueDump = self::dump($value, $depth - 1, $filters);
             $contentDump .= $keyDump . ' => ' . $valueDump . PHP_EOL;
         }
         $contentDump = self::indent($contentDump);
@@ -120,9 +121,10 @@ class NumberTwo
     /**
      * @param object $var
      * @param int $depth
+     * @param array $filters
      * @return string
      */
-    private static function dumpObject($var, $depth)
+    private static function dumpObject($var, $depth, $filters)
     {
         $class = get_class($var);
 
@@ -143,7 +145,7 @@ class NumberTwo
                 $property->setAccessible(true);
             }
 
-            $valueDump = self::dump($property->getValue($var), $depth - 1);
+            $valueDump = self::dump($property->getValue($var), $depth - 1, $filters);
             $contentDump .= $property->getName() . ': ' . $valueDump . PHP_EOL;
         }
         $contentDump = self::indent($contentDump);
