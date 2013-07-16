@@ -1,0 +1,10 @@
+{
+	"name": "mnapoli/number-two",
+	"type": "library",
+	"autoload": {
+		"psr-0": {
+			"NumberTwo": "src/",
+			"UnitTest": "tests/"
+		}
+	}
+}
