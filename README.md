@@ -41,6 +41,9 @@ echo NumberTwo::dump(array('foo' => 'bar'));
 
 ```php
 echo NumberTwo::dump($object);
+```
+
+```php
 My\ClassWithPublicProperties {
     foo: "aaa"
     bar: "bbb"
@@ -51,6 +54,9 @@ You can configure the recursive depth:
 
 ```php
 echo NumberTwo::dump($otherObject, 2);
+```
+
+```php
 UnitTest\NumberTwo\PublicProperties {
     foo: UnitTest\NumberTwo\PublicProperties {
         foo: UnitTest\NumberTwo\PrivateProperties { ... }

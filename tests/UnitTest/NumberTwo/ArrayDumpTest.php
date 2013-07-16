@@ -9,7 +9,14 @@ class ArrayDumpTest extends \PHPUnit_Framework_TestCase
     public function testEmptyArray()
     {
         $dump = NumberTwo::dump(array());
-        $this->assertEquals('[]', $dump);
+        $this->assertEquals('array(0)', $dump);
+    }
+
+    public function testMaxDepth0()
+    {
+        $var = array('foo', 'bar');
+        $dump = NumberTwo::dump($var, 0);
+        $this->assertEquals('array(2)', $dump);
     }
 
     public function testNumericIndexArray1()
@@ -58,7 +65,7 @@ END;
         $expected = <<<END
 [
     0 => [
-        0 => [ ... ]
+        0 => array(1)
     ]
 ]
 END;

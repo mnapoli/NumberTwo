@@ -90,11 +90,12 @@ class NumberTwo
     private static function dumpArray($var, $depth)
     {
         if (count($var) === 0) {
-            return '[]';
+            return 'array(0)';
         }
 
         if ($depth === 0) {
-            return '[ ... ]';
+            $count = count($var);
+            return "array($count)";
         }
 
         $contentDump = '';
