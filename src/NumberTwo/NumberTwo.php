@@ -9,6 +9,7 @@ namespace NumberTwo;
  */
 class NumberTwo
 {
+    const TAB = '    ';
     /**
      * Returns a string representation of the variable.
      *
@@ -42,6 +43,43 @@ class NumberTwo
             return (string) $var;
         }
 
+        if (is_array($var)) {
+            if (count($var) === 0) {
+                return '[]';
+            }
+
+            $contentDump = '';
+            foreach ($var as $key => $value) {
+                $keyDump = self::dump($key);
+                $valueDump = self::dump($value);
+                $contentDump .= $keyDump . ' => ' . $valueDump . PHP_EOL;
+            }
+            $contentDump = self::indent($contentDump);
+
+            $dump = '[' . PHP_EOL . $contentDump . ']';
+
+            return $dump;
+        }
+
         return '';
+    }
+
+    /**
+     * Indents a block of lines
+     * @param string $dump
+     * @return string
+     */
+    protected static function indent($dump)
+    {
+        $lines = explode(PHP_EOL, $dump);
+
+        // Removes last empty line
+        $lastIndex = count($lines) - 1;
+        unset($lines[$lastIndex]);
+
+        // Add an indentation level for each line
+        $lines = array_map(function($line) { return self::TAB . $line; }, $lines);
+
+        return implode(PHP_EOL, $lines) . PHP_EOL;
     }
 }
