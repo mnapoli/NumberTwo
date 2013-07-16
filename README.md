@@ -91,3 +91,5 @@ echo NumberTwo::dump($otherObject, 2, $filters);
 ```
 
 This filter will turn any Collection (ArrayCollection, PersistentCollection, …) into a PHP array (using the `toArray()` method).
+
+Feel free to submit other filters in a pull request.
