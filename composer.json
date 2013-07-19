@@ -1,6 +1,10 @@
 {
 	"name": "mnapoli/number-two",
 	"type": "library",
+    "description": "NumberTwo is a classy variable dumper",
+    "keywords": ["dump", "var_dump", "debug", "variable"],
+    "homepage": "https://github.com/mnapoli/NumberTwo",
+    "license": "MIT",
 	"autoload": {
 		"psr-0": {
 			"NumberTwo": "src/",
