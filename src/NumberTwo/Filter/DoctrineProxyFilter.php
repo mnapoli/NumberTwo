@@ -35,5 +35,7 @@ class DoctrineProxyFilter implements Filter
         if (!$var->__isInitialized()) {
             $var->__load();
         }
+        // It's a public property, we can delete it
+        unset($var->__isInitialized__);
     }
 }
