@@ -12,18 +12,19 @@ namespace NumberTwo\Filter;
 use NumberTwo\Filter;
 
 /**
- * Support for Doctrine's Collection class
+ * Support for Doctrine's proxies
  *
  * @author Matthieu Napoli <matthieu@mnapoli.fr>
  */
-class DoctrineCollectionFilter implements Filter
+class DoctrineProxyFilter implements Filter
 {
     /**
      * @return string Class or interface name to match
      */
     public function getClassName()
     {
-        return 'Doctrine\Common\Collections\Collection';
+        // Proxy interface compatible with Doctrine >2.0 (other interfaces are >2.2 or >2.4)
+        return 'Doctrine\ORM\Proxy\Proxy';
     }
 
     /**
@@ -31,6 +32,10 @@ class DoctrineCollectionFilter implements Filter
      */
     public function filter($var)
     {
-        return $var->toArray();
+        if (!$var->__isInitialized()) {
+            $var->__load();
+        }
+        // It's a public property, we can delete it
+        unset($var->__isInitialized__);
     }
 }
