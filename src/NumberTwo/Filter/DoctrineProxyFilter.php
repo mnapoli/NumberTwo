@@ -37,5 +37,7 @@ class DoctrineProxyFilter implements Filter
         }
         // It's a public property, we can delete it
         unset($var->__isInitialized__);
+
+        return $var;
     }
 }
