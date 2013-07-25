@@ -102,6 +102,20 @@ echo NumberTwo::dump($otherObject, 2, $filters);
 
 This filter will turn any Collection (ArrayCollection, PersistentCollection, …) into a PHP array (using the `toArray()` method).
 
+#### Doctrine proxies
+
+NumberTwo provides a filter for Doctrine's proxies:
+
+```php
+use NumberTwo\Filter\DoctrineProxyFilter;
+
+$filters = array(new DoctrineProxyFilter());
+
+echo NumberTwo::dump($otherObject, 2, $filters);
+```
+
+This filter will load uninitialized proxies and clean up properties.
+
 Feel free to submit other filters in a pull request.
 
 ## License
